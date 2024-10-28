@@ -27,6 +27,13 @@ pipeline {
             }
         }
 
+        stage('Debug') {
+            steps {
+                sh 'pwd'  
+                sh 'ls -al'  
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 script {
