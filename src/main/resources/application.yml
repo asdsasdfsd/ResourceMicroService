@@ -11,11 +11,6 @@ aliyun:
   oss:
     bucket-name: project2-bucket
     endpoint: oss-ap-southeast-1.aliyuncs.com
-<<<<<<< HEAD
     access-key-id: ${ALIYUN_ACCESS_KEY_ID} 
     access-key-secret: ${ALIYUN_ACCESS_KEY_SECRET} 
-=======
-    access-key-id: 123
-    access-key-secret: 123
->>>>>>> parent of 90edd56 (change id)
     file-host: secondHand
