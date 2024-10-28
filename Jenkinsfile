@@ -8,8 +8,10 @@ pipeline {
 
     environment {
         DOCKERHUB_REPO_RESOURCEMICROSERVICE = 'sh-resourcemicroservice' 
-        DOCKERHUB_CREDENTIALS = 'dockerhub-credentials'        // Docker Hub 凭证
-        DOCKERHUB_USER = 'tigerwk'                             // Docker Hub 用户名
+        DOCKERHUB_CREDENTIALS = 'dockerhub-credentials'                // Docker Hub 凭证
+        DOCKERHUB_USER = 'tigerwk'                                     // Docker Hub 用户名
+        ALIYUN_ACCESS_KEY_ID = credentials('ALIYUN_ACCESS_KEY_ID')    // 阿里云 Access Key Id
+        ALIYUN_ACCESS_KEY_SECRET = credentials('ALIYUN_ACCESS_KEY_SECRET') // 阿里云 Access Key Secret
     }
 
     stages {
@@ -28,7 +30,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def resourceMicroServiceImage = docker.build("${DOCKERHUB_USER}/${DOCKERHUB_REPO_RESOURCEMICROSERVICE}:latest")
+                    def resourceMicroServiceImage = docker.build("${DOCKERHUB_USER}/${DOCKERHUB_REPO_RESOURCEMICROSERVICE}:latest", "--build-arg ALIYUN_ACCESS_KEY_ID=${ALIYUN_ACCESS_KEY_ID} --build-arg ALIYUN_ACCESS_KEY_SECRET=${ALIYUN_ACCESS_KEY_SECRET}")
                 }
             }
         }
@@ -58,12 +60,12 @@ pipeline {
     post {
         always {
             script {
-                
                 sh "docker rmi ${DOCKERHUB_USER}/${DOCKERHUB_REPO_RESOURCEMICROSERVICE}:latest || true"
             }
         }
     }
 }
+
 
 
 
