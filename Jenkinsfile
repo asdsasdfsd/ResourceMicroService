@@ -30,12 +30,11 @@ pipeline {
         stage('Build Docker Image with Buildx') {
             steps {
                 script {
-                    // 创建 buildx 构建上下文
                     sh "docker buildx create --use"
 
-                    // 使用 buildx 构建 Docker 镜像
                     sh """
                     docker buildx build \
+                        --file Dockerfile \
                         --tag ${DOCKERHUB_USER}/${DOCKERHUB_REPO_RESOURCEMICROSERVICE}:latest \
                         --build-arg ALIYUN_ACCESS_KEY_ID=\${ALIYUN_ACCESS_KEY_ID} \
                         --build-arg ALIYUN_ACCESS_KEY_SECRET=\${ALIYUN_ACCESS_KEY_SECRET} \
