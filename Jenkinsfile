@@ -27,23 +27,18 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image with Buildx') {
+        stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker buildx create --use"
-
                     sh """
-                    docker buildx build \
-                        --file Dockerfile \
-                        --tag ${DOCKERHUB_USER}/${DOCKERHUB_REPO_RESOURCEMICROSERVICE}:latest \
-                        --build-arg ALIYUN_ACCESS_KEY_ID=\${ALIYUN_ACCESS_KEY_ID} \
-                        --build-arg ALIYUN_ACCESS_KEY_SECRET=\${ALIYUN_ACCESS_KEY_SECRET} \
+                    docker build -t ${DOCKERHUB_USER}/${DOCKERHUB_REPO_RESOURCEMICROSERVICE}:latest \
+                        --build-arg ALIYUN_ACCESS_KEY_ID=${ALIYUN_ACCESS_KEY_ID} \
+                        --build-arg ALIYUN_ACCESS_KEY_SECRET=${ALIYUN_ACCESS_KEY_SECRET} \
                         .
                     """
                 }
             }
         }
-
         stage('Login to Docker Hub') {
             steps {
                 script {
