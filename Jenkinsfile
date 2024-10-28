@@ -34,7 +34,9 @@ pipeline {
 
                     sh """
                     docker buildx build \
+                        --file Dockerfile \
                         --tag ${DOCKERHUB_USER}/${DOCKERHUB_REPO_RESOURCEMICROSERVICE}:latest \
+                        .
                     """
                 }
             }
