@@ -34,10 +34,7 @@ pipeline {
 
                     sh """
                     docker buildx build \
-                        --file Dockerfile \
                         --tag ${DOCKERHUB_USER}/${DOCKERHUB_REPO_RESOURCEMICROSERVICE}:latest \
-                        --build-arg ALIYUN_ACCESS_KEY_ID=\${ALIYUN_ACCESS_KEY_ID} \
-                        --build-arg ALIYUN_ACCESS_KEY_SECRET=\${ALIYUN_ACCESS_KEY_SECRET} \
                         --push .
                     """
                 }
