@@ -32,14 +32,14 @@ pipeline {
                 script {
                     sh """
                     docker build -t ${DOCKERHUB_USER}/${DOCKERHUB_REPO_RESOURCEMICROSERVICE}:latest \
+                        . \
                         --build-arg ALIYUN_ACCESS_KEY_ID=\$ALIYUN_ACCESS_KEY_ID \
                         --build-arg ALIYUN_ACCESS_KEY_SECRET=\$ALIYUN_ACCESS_KEY_SECRET \
-                        .
                     """
                 }
             }
         }
-        
+
         stage('Login to Docker Hub') {
             steps {
                 script {
